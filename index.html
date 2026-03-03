@@ -100,11 +100,11 @@ button:hover {
   max-width: 500px;
 }
 
-#card img {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+#card {
+  position: relative;
+  display: inline-block;
+  width: 1500px;   /* دقة فعلية */
+  max-width: 100%;
 }
 
 #nameText {
@@ -162,14 +162,18 @@ function downloadCard() {
   const card = document.getElementById('card');
 
   html2canvas(card, {
-    scale: 4,
+    scale: window.devicePixelRatio * 2, // أفضل من رقم ثابت
     useCORS: true,
-    backgroundColor: null
+    backgroundColor: null,
+    allowTaint: true,
+    logging: false
   }).then(canvas => {
+
     const link = document.createElement('a');
-    link.download = 'eid-card.jpg';
-    link.href = canvas.toDataURL('image/jpeg', 1.0);
+    link.download = 'eid-card.png'; // استخدم PNG أفضل جودة
+    link.href = canvas.toDataURL('image/png');
     link.click();
+
   });
 }
 </script>
@@ -178,6 +182,7 @@ function downloadCard() {
 
 </body>
 </html>
+
 
 
 
